@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/check"
+        android:icon="@drawable/ic_check"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/draw"
+        android:icon="@drawable/ic_brush"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mic"
+        android:icon="@drawable/ic_mic"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/image"
+        android:icon="@drawable/ic_image"
+        android:title="Item"
+        app:showAsAction="always" />
+</menu>
