@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:context=".ui.activity.MainActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -22,38 +21,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:id="@+id/coordinatorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.appbar.AppBarLayout
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@drawable/ic_toolbar_layout"
+                    app:menu="@menu/top_app_bar"
+                    app:navigationIcon="@drawable/menu"
+                    app:title="@string/app_name"
+                    app:titleCentered="true">
 
-                    <com.google.android.material.appbar.MaterialToolbar
-                        android:id="@+id/topAppBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        app:menu="@menu/top_app_bar"
-                        app:navigationIcon="@drawable/menu"
-                        app:title="@string/app_name"
-                        app:titleCentered="true">
+                    <!-- Include SearchView in the Toolbar -->
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/search_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:queryHint="Search here" />
 
-                        <!-- Include SearchView in the Toolbar -->
-                        <androidx.appcompat.widget.SearchView
-                            android:id="@+id/search_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            app:queryHint="Search here" />
-
-                    </com.google.android.material.appbar.MaterialToolbar>
-
-                </com.google.android.material.appbar.AppBarLayout>
+                </com.google.android.material.appbar.MaterialToolbar>
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -61,6 +60,7 @@
                 android:id="@+id/fragment_container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/coordinatorLayout2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <!-- Bottom App Bar -->
+
                 <com.google.android.material.bottomappbar.BottomAppBar
                     android:id="@+id/bottomAppBar"
                     android:layout_width="match_parent"
@@ -86,9 +86,7 @@
                     app:fabCradleRoundedCornerRadius="16dp"
                     app:fabCradleVerticalOffset="16dp"
                     app:menu="@menu/bottomappbar_menu"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.MediumComponent">
-
-                </com.google.android.material.bottomappbar.BottomAppBar>
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.MediumComponent" />
 
                 <!-- Floating Action Button -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -99,11 +97,14 @@
                     android:layout_margin="16dp"
                     android:contentDescription="@string/add_notes"
                     android:src="@drawable/ic_add_notes"
+                    android:transitionName="shared_element_container"
                     app:elevation="8dp"
-                    app:layout_anchor="@id/bottomAppBar" />
+                    app:hoveredFocusedTranslationZ="2dp"
+                    app:layout_anchor="@id/bottomAppBar"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"
+                    app:showMotionSpec="@animator/fab_animation" />
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -122,7 +123,8 @@
         android:id="@+id/bottomFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/colorBackground"
+        android:padding="32dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/drawer_layout"
         app:layout_constraintEnd_toEndOf="@+id/drawer_layout"

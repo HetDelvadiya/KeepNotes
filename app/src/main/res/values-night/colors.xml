@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/colors.xml -->
+<resources>
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#1D4D77</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+
+    <!-- Secondary Colors -->
+    <color name="colorSecondary">#006C4F</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <!-- Background and Surface Colors -->
+    <color name="colorBackground">#F0F4F8</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorSurface">#573e5c</color>
+    <color name="colorOnSurface">#000000</color>
+
+    <!-- Error Colors -->
+    <color name="colorError">#B00020</color>
+    <color name="colorOnError">#FFFFFF</color>
+
+    <!-- Additional Colors -->
+    <color name="colorPrimaryLight">#6FA8D2</color>
+    <color name="colorPrimaryDark">#003C5D</color>
+    <color name="colorSecondaryLight">#00957D</color>
+    <color name="colorSecondaryDark">#004A36</color>
+</resources>
+

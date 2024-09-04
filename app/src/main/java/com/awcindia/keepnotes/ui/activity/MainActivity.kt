@@ -1,9 +1,13 @@
 package com.awcindia.keepnotes.ui.activity
 
+import android.animation.AnimatorInflater
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -24,21 +28,22 @@ import com.awcindia.keepnotes.ui.fragment.toggleFragment.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding // Generated binding class
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inflate the layout using view binding
+        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        val animator = AnimatorInflater.loadAnimator(this, R.animator.fab_animation)
+        animator.setTarget(binding.fab)
+        animator.start()
 
         // Set up the toolbar as the ActionBar
         setSupportActionBar(binding.topAppBar)
@@ -56,6 +61,18 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, NotesFragment())
                 .commit()
+        }
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, AddNotesActivity::class.java)
+            val options = ActivityOptions.makeCustomAnimation(
+                this,
+                R.anim.enter_from_right,
+                R.anim.exit_to_left
+            )
+            // Start the new activity with the transition
+            startActivity(intent, options.toBundle())
+
         }
 
         binding.navigationView.setNavigationItemSelectedListener {
@@ -175,4 +192,5 @@ class MainActivity : AppCompatActivity() {
             .commit()
         binding.bottomFragmentContainer.visibility = View.VISIBLE
     }
+
 }
