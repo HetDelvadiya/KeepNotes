@@ -6,8 +6,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSurface"
+    android:padding="8dp"
     tools:context=".ui.activity.AddNotesActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back">
 
+        <ImageButton
+            android:id="@+id/archive"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:background="@color/colorSurface"
+            android:contentDescription="@string/archive"
+            android:src="@drawable/ic_archive" />
+
+        <ImageButton
+            android:id="@+id/reminders"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:background="@color/colorSurface"
+            android:contentDescription="@string/reminder"
+            android:src="@drawable/ic_add_reminder" />
+
+        <ImageButton
+            android:id="@+id/pin"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:background="@color/colorSurface"
+            android:contentDescription="@string/pin"
+            android:src="@drawable/ic_pin" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
