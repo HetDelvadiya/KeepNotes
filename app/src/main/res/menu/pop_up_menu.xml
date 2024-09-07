@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tackImage"
+        android:icon="@drawable/ic_camera"
+        android:title="Take Image" />
+    <item
+        android:id="@+id/addImage"
+        android:icon="@drawable/ic_image"
+        android:title="Add Image" />
+    <item
+        android:id="@+id/drawing"
+        android:icon="@drawable/ic_brush"
+        android:title="Drawing" />
+</menu>

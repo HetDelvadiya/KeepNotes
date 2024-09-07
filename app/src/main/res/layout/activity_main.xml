@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:id="@+id/coordinatorLayout"
                 android:layout_width="match_parent"
@@ -73,7 +72,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-
                 <com.google.android.material.bottomappbar.BottomAppBar
                     android:id="@+id/bottomAppBar"
                     android:layout_width="match_parent"
@@ -123,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
-        android:padding="32dp"
+        android:padding="8dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/drawer_layout"
         app:layout_constraintEnd_toEndOf="@+id/drawer_layout"

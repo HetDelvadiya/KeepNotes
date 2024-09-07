@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.awcindia.keepnotes.R
 
 
-
 class DeletedFragment : Fragment() {
 
 

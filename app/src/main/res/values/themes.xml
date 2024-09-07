@@ -1,42 +1,36 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.myTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize your theme here. -->
 
-        <item name="windowActionModeOverlay">true</item>
-        <!--        <item name="android:fitsSystemWindows">true</item>-->
-        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Dark.ActionBar</item>
-
+        <!-- Primary and secondary colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
-
-        <!-- Secondary color -->
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
 
         <!-- Background and surface colors -->
-        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
 
-        <!-- Error color -->
+        <!-- Error colors -->
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
 
-
-        <!-- Customize other attributes as needed -->
+        <!-- Additional styling -->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Dark.ActionBar</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
 
-        <item  name="android:windowActivityTransitions">true</item>
+        <!-- Enable transitions -->
+        <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
 
-    <style name="Theme.KeepNotes" parent="Base.Theme.KeepNotes" />
-
-
+    <style name="Theme.KeepNotes" parent="Theme.myTheme" />
 </resources>

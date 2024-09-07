@@ -8,4 +8,9 @@
     <string name="archive">Archive</string>
     <string name="reminder">Reminder</string>
     <string name="pin">Pin</string>
+    <string name="draw">Draw\n</string>
+    <string name="save">save</string>
+    <string name="insert_image">Insert Image</string>
+    <string name="change_background">change background</string>
+    <string name="add_item">Add item</string>
 </resources>

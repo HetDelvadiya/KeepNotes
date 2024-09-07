@@ -18,4 +18,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item> <!-- Adjust the corner size as needed -->
     </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@android:color/transparent</item>
+        <item name="boxBackgroundMode">none</item>
+    </style>
 </resources>
