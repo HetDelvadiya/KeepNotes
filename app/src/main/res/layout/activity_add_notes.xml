@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSurface"
     android:padding="8dp"
     tools:context=".ui.activity.AddNotesActivity">
 
@@ -82,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:hint="Title"
                     android:inputType="textCapSentences|textMultiLine"
-                    android:textSize="28dp" />
+                    android:textSize="22sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

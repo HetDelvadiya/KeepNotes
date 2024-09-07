@@ -13,4 +13,5 @@
     <string name="insert_image">Insert Image</string>
     <string name="change_background">change background</string>
     <string name="add_item">Add item</string>
+    <string name="background">Background</string>
 </resources>

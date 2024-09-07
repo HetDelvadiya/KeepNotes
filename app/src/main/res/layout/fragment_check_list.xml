@@ -56,8 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Title"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textSize="28sp" />
+            android:inputType="text|textCapSentences|textMultiLine"
+            android:textSize="22sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,8 +71,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            tools:listitem="@layout/item_checklist"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <TextView
@@ -82,8 +82,8 @@
             android:layout_gravity="start"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_notes"
-            android:text="+ list item"
-            android:textSize="24dp" />
+            android:text="+ List Item"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
