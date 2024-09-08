@@ -14,16 +14,21 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class BackgroundFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBackgroundBinding
-    lateinit var backgroundImageAdapter: BackgroundImageAdapter
+    private lateinit var backgroundImageAdapter: BackgroundImageAdapter
 
     private val imageList = listOf(
-        R.drawable.naruto, // Replace with your actual image resource names
-        R.drawable.gt,
+        R.drawable.background1,
+        R.drawable.background2,
+        R.drawable.background3,
+        R.drawable.background4,
+        R.drawable.background5,
+        R.drawable.background6,
+        R.drawable.background7,
+        R.drawable.background8,
+        R.drawable.background9,
     )
 
-
     var onColorSelected: ((Int) -> Unit)? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

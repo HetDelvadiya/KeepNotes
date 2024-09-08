@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.awcindia.keepnotes.adapter.ChecklistAdapter
 import com.awcindia.keepnotes.databinding.FragmentCheckListBinding
+import com.awcindia.keepnotes.ui.fragment.buttomSheet.BackgroundFragment
 import com.example.notesapp.ChecklistItem
 
 
@@ -36,6 +37,13 @@ class CheckListFragment : Fragment() {
         val addButton = binding.addButton
         addButton.setOnClickListener {
             adapter.addItem()
+        }
+
+        binding.background.setOnClickListener {
+            val backgroundSheet = BackgroundFragment()
+            backgroundSheet.onColorSelected =
+                { selectedImageRes -> binding.main.setBackgroundResource(selectedImageRes) }
+            backgroundSheet.show(childFragmentManager, "BBackgroundSheet")
         }
 
         return binding.root

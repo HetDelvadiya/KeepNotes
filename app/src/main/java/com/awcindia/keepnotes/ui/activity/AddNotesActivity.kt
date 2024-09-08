@@ -59,6 +59,8 @@ class AddNotesActivity : AppCompatActivity() {
 
         binding.background.setOnClickListener {
             val backgroundSheet = BackgroundFragment()
+            backgroundSheet.onColorSelected =
+                { selectedImageRes -> binding.main.setBackgroundResource(selectedImageRes) }
             backgroundSheet.show(supportFragmentManager, "BBackgroundSheet")
         }
     }

@@ -73,12 +73,14 @@
                 android:id="@+id/textInputLayout2"
                 style="@style/CustomTextInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:elevation="5dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/notesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:elevation="5dp"
                     android:hint="Title"
                     android:inputType="textCapSentences|textMultiLine"
                     android:textSize="22sp" />
@@ -106,17 +108,19 @@
     </ScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/notes_bottom_menu">
 
         <ImageButton
             android:id="@+id/insertMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/insert_image"
             android:padding="8dp"
@@ -124,8 +128,8 @@
 
         <ImageButton
             android:id="@+id/background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/change_background"
             android:padding="8dp"
