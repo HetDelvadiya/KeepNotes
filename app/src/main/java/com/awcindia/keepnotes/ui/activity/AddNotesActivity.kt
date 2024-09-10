@@ -9,21 +9,29 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.awcindia.keepnotes.R
+import com.awcindia.keepnotes.database.NotesDatabase
 import com.awcindia.keepnotes.databinding.ActivityAddNotesBinding
+import com.awcindia.keepnotes.model.NotesModel
+import com.awcindia.keepnotes.repository.NotesRepository
 import com.awcindia.keepnotes.repository.ReminderRepository
 import com.awcindia.keepnotes.ui.fragment.buttomSheet.BackgroundFragment
 import com.awcindia.keepnotes.ui.fragment.buttomSheet.InsertBottomSheet
 import com.awcindia.keepnotes.ui.fragment.dateAndTime.DatePickerFragment
 import com.awcindia.keepnotes.ui.fragment.dateAndTime.TimePickerFragment
+import com.awcindia.keepnotes.viewModel.notes.NotesFactory
+import com.awcindia.keepnotes.viewModel.notes.NotesViewModel
 import com.awcindia.keepnotes.viewModel.reminder.ReminderFactory
 import com.awcindia.keepnotes.viewModel.reminder.ReminderViewModel
+import java.util.Date
 
 class AddNotesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddNotesBinding
-    private lateinit var viewModel: ReminderViewModel
-
+    private lateinit var reminderViewModel: ReminderViewModel
+    private lateinit var notesViewModel: NotesViewModel
     private var isPinned = false
+    private var isReminder = false
+    private var backgroundImage: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +44,20 @@ class AddNotesActivity : AppCompatActivity() {
             insets
         }
 
-        val repository = ReminderRepository(this)
-        viewModel =
-            ViewModelProvider(this, ReminderFactory(repository)).get(ReminderViewModel::class.java)
+        val reminderRepository = ReminderRepository(this)
+        reminderViewModel = ViewModelProvider(
+            this, ReminderFactory(reminderRepository)
+        )[ReminderViewModel::class.java]
+        reminderViewModel.checkAndRequestExactAlarmPermission()
 
-        viewModel.checkAndRequestExactAlarmPermission()
+        val notesDao = NotesDatabase.getDatabase(this).notesDao()
+        val notesRepository = NotesRepository(notesDao)
+        notesViewModel =
+            ViewModelProvider(this, NotesFactory(notesRepository))[NotesViewModel::class.java]
 
+        binding.save.setOnClickListener {
+            saveNote()
+        }
         binding.pin.setOnClickListener {
             isPinned = !isPinned
             val imageRes = if (isPinned) R.drawable.push_pin else R.drawable.ic_pin
@@ -50,6 +66,7 @@ class AddNotesActivity : AppCompatActivity() {
 
         binding.reminders.setOnClickListener {
             showDatePicker()
+            isReminder = true
         }
 
         binding.insertMenu.setOnClickListener {
@@ -59,8 +76,10 @@ class AddNotesActivity : AppCompatActivity() {
 
         binding.background.setOnClickListener {
             val backgroundSheet = BackgroundFragment()
-            backgroundSheet.onColorSelected =
-                { selectedImageRes -> binding.main.setBackgroundResource(selectedImageRes) }
+            backgroundSheet.onColorSelected = { selectedImageRes ->
+                backgroundImage = selectedImageRes
+                binding.main.setBackgroundResource(backgroundImage!!)
+            }
             backgroundSheet.show(supportFragmentManager, "BBackgroundSheet")
         }
     }
@@ -82,7 +101,7 @@ class AddNotesActivity : AppCompatActivity() {
     private fun displaySelectedDateTime(year: Int, month: Int, day: Int, hour: Int, minute: Int) {
         val selectedDateTime = "$year-${month} $day $hour:$minute"
         //  binding.selectedDateTimeTextView.text = "Selected Date and Time: $selectedDateTime"
-        viewModel.setReminder(year, month, day, hour, minute)
+        reminderViewModel.setReminder(year, month, day, hour, minute)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,6 +121,30 @@ class AddNotesActivity : AppCompatActivity() {
             }
 
             else -> false
+        }
+    }
+
+    private fun saveNote() {
+        val title = binding.notesTitle.text.toString()
+        val description = binding.notesDiscription.text.toString()
+        val backgroundImage = backgroundImage // Set this if applicable
+        val images = "" // Handle image URIs if any
+        val reminder = isReminder // Assuming you have a method to get the reminder date
+
+        if (title.isNotBlank() && description.isNotBlank()) {
+            val note = NotesModel(
+                title = title,
+                description = description,
+                images = images,
+                backgroundImage = backgroundImage,
+                isPinned = isPinned,
+                isArchive = false, // Default value
+                reminder = reminder,
+                createdAt = Date(),
+                updatedAt = Date()
+            )
+            notesViewModel.insertNotes(note) // Insert note into database
+            finish() // Close activity after saving
         }
     }
 }

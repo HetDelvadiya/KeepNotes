@@ -135,6 +135,13 @@
             android:padding="8dp"
             android:src="@drawable/ic_palette" />
 
+        <ImageButton
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_right" />
+
     </com.google.android.material.bottomappbar.BottomAppBar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
