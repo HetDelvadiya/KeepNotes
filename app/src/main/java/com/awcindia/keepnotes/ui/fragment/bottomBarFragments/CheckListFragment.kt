@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.awcindia.keepnotes.adapter.ChecklistAdapter
 import com.awcindia.keepnotes.databinding.FragmentCheckListBinding
 import com.awcindia.keepnotes.ui.fragment.buttomSheet.BackgroundFragment
-import com.example.notesapp.ChecklistItem
+import com.awcindia.keepnotes.model.ChecklistItem
 
 
 class CheckListFragment : Fragment() {

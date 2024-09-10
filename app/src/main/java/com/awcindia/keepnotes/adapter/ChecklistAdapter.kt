@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.awcindia.keepnotes.databinding.ItemChecklistBinding
-import com.example.notesapp.ChecklistItem
+import com.awcindia.keepnotes.model.ChecklistItem
 
 class ChecklistAdapter(private val checklist: MutableList<ChecklistItem>) :
     RecyclerView.Adapter<ChecklistAdapter.ChecklistViewHolder>() {

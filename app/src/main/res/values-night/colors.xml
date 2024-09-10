@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/values/colors.xml -->
+<?xml version="1.0" encoding="utf-8"?><!-- res/values/colors.xml -->
 <resources>
     <!-- Primary Colors -->
     <color name="colorPrimary">#1D4D77</color>

@@ -53,6 +53,13 @@ dependencies {
 
     implementation("com.google.android.material:material:1.12.0")
 
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // pagination
+    implementation("androidx.paging:paging-runtime:3.3.2")
+    implementation("androidx.room:room-paging:2.6.1")
 
     // Room dependencies
     implementation("androidx.room:room-runtime:2.6.1")

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="1dp">
@@ -20,7 +21,16 @@
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/notesImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/notesTitle"
@@ -28,11 +38,12 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="5"
+                android:padding="1dp"
                 android:text="Title"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/notesImage" />
 
             <TextView
                 android:id="@+id/notesDiscription"
@@ -40,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="5"
+                android:padding="1dp"
                 android:text="Notes"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"

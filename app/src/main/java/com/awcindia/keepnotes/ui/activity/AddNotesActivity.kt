@@ -1,8 +1,11 @@
 package com.awcindia.keepnotes.ui.activity
 
+
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,7 +27,7 @@ import com.awcindia.keepnotes.viewModel.reminder.ReminderFactory
 import com.awcindia.keepnotes.viewModel.reminder.ReminderViewModel
 import java.util.Date
 
-class AddNotesActivity : AppCompatActivity() {
+class AddNotesActivity : AppCompatActivity(), InsertBottomSheet.OnImageSelectedListener {
 
     private lateinit var binding: ActivityAddNotesBinding
     private lateinit var reminderViewModel: ReminderViewModel
@@ -32,6 +35,7 @@ class AddNotesActivity : AppCompatActivity() {
     private var isPinned = false
     private var isReminder = false
     private var backgroundImage: Int? = null
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,44 +48,20 @@ class AddNotesActivity : AppCompatActivity() {
             insets
         }
 
+        // Reminder ViewModel
         val reminderRepository = ReminderRepository(this)
         reminderViewModel = ViewModelProvider(
             this, ReminderFactory(reminderRepository)
         )[ReminderViewModel::class.java]
         reminderViewModel.checkAndRequestExactAlarmPermission()
 
+        // Notes ViewModel
         val notesDao = NotesDatabase.getDatabase(this).notesDao()
         val notesRepository = NotesRepository(notesDao)
         notesViewModel =
             ViewModelProvider(this, NotesFactory(notesRepository))[NotesViewModel::class.java]
 
-        binding.save.setOnClickListener {
-            saveNote()
-        }
-        binding.pin.setOnClickListener {
-            isPinned = !isPinned
-            val imageRes = if (isPinned) R.drawable.push_pin else R.drawable.ic_pin
-            binding.pin.setImageResource(imageRes)
-        }
-
-        binding.reminders.setOnClickListener {
-            showDatePicker()
-            isReminder = true
-        }
-
-        binding.insertMenu.setOnClickListener {
-            val bottomSheet = InsertBottomSheet()
-            bottomSheet.show(supportFragmentManager, "InsertBottomSheet")
-        }
-
-        binding.background.setOnClickListener {
-            val backgroundSheet = BackgroundFragment()
-            backgroundSheet.onColorSelected = { selectedImageRes ->
-                backgroundImage = selectedImageRes
-                binding.main.setBackgroundResource(backgroundImage!!)
-            }
-            backgroundSheet.show(supportFragmentManager, "BBackgroundSheet")
-        }
+        allClickListener()
     }
 
     private fun showDatePicker() {
@@ -111,7 +91,6 @@ class AddNotesActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-
             R.id.deleteNotes -> {
                 true
             }
@@ -120,22 +99,73 @@ class AddNotesActivity : AppCompatActivity() {
                 true
             }
 
-            else -> false
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun allClickListener() {
+        binding.notesTitle.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                saveNote() // Save note when focus is lost
+            }
+        }
+
+        binding.notesToolbar.setNavigationOnClickListener {
+            finish()
+        }
+
+        binding.notesDiscription.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                saveNote() // Save note when focus is lost
+            }
+        }
+
+        binding.pin.setOnClickListener {
+            isPinned = !isPinned
+            val imageRes = if (isPinned) R.drawable.push_pin else R.drawable.ic_pin
+            binding.pin.setImageResource(imageRes)
+        }
+
+        binding.reminders.setOnClickListener {
+            showDatePicker()
+            isReminder = true
+        }
+
+        binding.insertMenu.setOnClickListener {
+            val bottomSheet = InsertBottomSheet()
+            bottomSheet.setOnImageSelectedListener(this)
+            bottomSheet.show(supportFragmentManager, "com.awcindia.keepnotes.ui.fragment.buttomSheet.InsertBottomSheet")
+        }
+
+        binding.background.setOnClickListener {
+            val backgroundSheet = BackgroundFragment()
+            backgroundSheet.onColorSelected = { selectedImageRes ->
+                backgroundImage = selectedImageRes
+                binding.main.setBackgroundResource(backgroundImage!!)
+            }
+            backgroundSheet.show(supportFragmentManager, "BackgroundSheet")
+        }
+    }
+
+    override fun onImageSelected(uri: Uri) {
+        imageUri = uri
+        binding.imageNote.setImageURI(uri) // Display the image in the ImageView
+        binding.imageNote.visibility = View.VISIBLE
+        saveNote()
     }
 
     private fun saveNote() {
         val title = binding.notesTitle.text.toString()
         val description = binding.notesDiscription.text.toString()
         val backgroundImage = backgroundImage // Set this if applicable
-        val images = "" // Handle image URIs if any
+        val images = imageUri // Handle image URIs if any
         val reminder = isReminder // Assuming you have a method to get the reminder date
 
         if (title.isNotBlank() && description.isNotBlank()) {
             val note = NotesModel(
                 title = title,
                 description = description,
-                images = images,
+                images = images.toString(),
                 backgroundImage = backgroundImage,
                 isPinned = isPinned,
                 isArchive = false, // Default value
@@ -146,5 +176,10 @@ class AddNotesActivity : AppCompatActivity() {
             notesViewModel.insertNotes(note) // Insert note into database
             finish() // Close activity after saving
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveNote() // Save note when the activity or fragment goes into the background
     }
 }

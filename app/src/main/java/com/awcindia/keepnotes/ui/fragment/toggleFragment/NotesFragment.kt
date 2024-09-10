@@ -41,9 +41,8 @@ class NotesFragment : Fragment() {
         binding.notesRecyclerView.adapter = notesAdapter
 
 
-        notesViewModel.getNotes()
         notesViewModel.notesLiveData.observe(viewLifecycleOwner, Observer { notesList ->
-            notesAdapter.submitList(notesList)
+            notesAdapter.submitData(lifecycle, notesList)
         })
 
         return binding.root

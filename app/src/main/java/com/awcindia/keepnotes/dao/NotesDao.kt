@@ -1,6 +1,6 @@
 package com.awcindia.keepnotes.dao
 
-import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,8 +11,8 @@ import com.awcindia.keepnotes.model.NotesModel
 @Dao
 interface NotesDao {
 
-    @Query("SELECT * FROM notes ORDER BY id DESC")
-    fun getNotes(): LiveData<List<NotesModel>>
+    @Query("SELECT * FROM notes ORDER BY isPinned DESC , id DESC")
+    fun getNotes(): PagingSource<Int, NotesModel>
 
     @Insert
     suspend fun insertNotes(notesModel: NotesModel)

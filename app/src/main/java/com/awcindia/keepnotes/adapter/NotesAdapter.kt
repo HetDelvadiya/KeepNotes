@@ -1,14 +1,17 @@
 package com.awcindia.keepnotes.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.awcindia.keepnotes.databinding.ListNotesLayoutBinding
 import com.awcindia.keepnotes.model.NotesModel
+import com.bumptech.glide.Glide
 
-class NotesAdapter : ListAdapter<NotesModel, NotesAdapter.NotesViewHolder>(NotesDiffCallback) {
+class NotesAdapter : PagingDataAdapter<NotesModel, NotesAdapter.NotesViewHolder>(NotesDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val binding =
@@ -18,7 +21,9 @@ class NotesAdapter : ListAdapter<NotesModel, NotesAdapter.NotesViewHolder>(Notes
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val note = getItem(position)
-        holder.bind(note)
+        if (note != null) {
+            holder.bind(note)
+        }
     }
 
     inner class NotesViewHolder(private val binding: ListNotesLayoutBinding) :
@@ -27,10 +32,11 @@ class NotesAdapter : ListAdapter<NotesModel, NotesAdapter.NotesViewHolder>(Notes
             binding.notesTitle.text = note.title
             binding.notesDiscription.text = note.description
             note.backgroundImage?.let { binding.main.setBackgroundResource(it) }
+            Glide.with(binding.notesImage.context).load(note.images).into(binding.notesImage)
+            binding.notesImage.visibility = View.VISIBLE
         }
     }
 }
-
 
 object NotesDiffCallback : DiffUtil.ItemCallback<NotesModel>() {
     override fun areItemsTheSame(oldItem: NotesModel, newItem: NotesModel): Boolean {
